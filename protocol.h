@@ -45,8 +45,12 @@ class node_t{
 class tree_t{
 
     public:
-        tree_t(int p_K, int p_n);
+        tree_t(int p_K, int p_n, int p_L);
         ~tree_t();
+        void evaluate(std::vector<int> v);
+
+        // value used for input weights [-L, L]
+        int L;
 
         // number of perceptrons
         int K;
