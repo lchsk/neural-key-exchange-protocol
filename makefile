@@ -1,6 +1,6 @@
-OBJS = main.o protocol.o util.o node.o
+OBJS = main.o protocol.o util.o node.o config.o
 CC = g++
-DEBUG = 
+DEBUG = -g
 CFLAGS = $(DEBUG) -std=c++11
 LIBS = 
 
@@ -21,6 +21,8 @@ node.o: node.cpp
 util.o: util.cpp
 	$(CC) -c $(CFLAGS) util.cpp $(LIBS)
 
+config.o: config.cpp
+	$(CC) -c $(CFLAGS) config.cpp $(LIBS)
 
 clean:
 	rm -rf *o kkk

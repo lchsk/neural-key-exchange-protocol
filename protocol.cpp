@@ -1,7 +1,6 @@
 #include <cstdio>
 #include <random>
 
-
 #include "protocol.h"
 #include "node.h"
 #include "util.h"
@@ -36,15 +35,10 @@ tree_t::evaluate(std::vector<int> v, bool p_change_input, bool p_rand_weights)
 
             if (p_rand_weights)
                 n->weight = rand() % (L * 2 + 1) - L;
-            
 
-            //printf("i: %d, id: %d, w: %d\n", n->value, n->id, n->weight);
-            
             // weighted sum
             value += (n->value * n->weight);
         }
-
-        //printf("perceptron %d output is %d\n", i, value);
 
         if (value >= 0)
             head->children[i]->value = 1;
@@ -59,20 +53,26 @@ tree_t::evaluate(std::vector<int> v, bool p_change_input, bool p_rand_weights)
 }
 
 void 
+tree_t::update_subtree_weights(int p_subtree_id)
+{
+    // perceptron's inputs
+    for (int j = 0; j < n; j++)
+    {
+        node_t* n = head->children[p_subtree_id]->children[j];
+        n->weight = n->weight - head->children[p_subtree_id]->value * n->value;
+        n->weight = clamp(n->weight, -L, L);
+    }
+}
+
+void 
 tree_t::update_weights()
 {
     // all perceptrons
     for (int i = 0; i < K; i++)
     {
-        if (head->value  == head->children[i]->value)
+        if (head->value == head->children[i]->value)
         {
-            // perceptron's inputs
-            for (int j = 0; j < n; j++)
-            {
-                node_t* n = head->children[i]->children[j];
-                n->weight = n->weight - head->children[i]->value *  n->value;
-                n->weight = clamp(n->weight, -L, L);
-            }
+            update_subtree_weights(i);
         }
     }
 }
@@ -111,3 +111,31 @@ tree_t::is_synchronised(tree_t& p_tree)
     return true;
 }
 
+void
+tree_t::find_min()
+{
+    int min_value = 100 * K;
+    int min_id = -1;
+    int tmp;
+
+    for (int i = 0; i < K; i++)
+    {
+        tmp = 0;
+
+        for (int j = 0; j < n; j++)
+        {
+            node_t* node = head->children[i]->children[j];
+            tmp += node->weight * node->value;
+        }
+
+        tmp = abs(tmp);
+        if (tmp < min_value)
+        {
+            min_value = tmp;
+            min_id = i;
+        }
+    }
+
+    node_t* node = head->children[min_id];
+    node->value = -node->value;
+}

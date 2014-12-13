@@ -2,6 +2,7 @@
 #include <vector>
 #include <random>
 
+#include "node.h"
 #include "util.h"
 
 std::vector<int>
@@ -49,4 +50,17 @@ clamp(int p_value, int p_min, int p_max)
         return p_min;
 
     return p_value;
+}
+
+bool 
+is_positive(node_t* node, int n)
+{
+    int value = 0;
+
+    for (int j = 0; j < n; j++)
+    {
+        value += (node->children[j]->value * node->children[j]->weight);
+    }
+
+    return value >= 0;
 }

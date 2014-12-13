@@ -13,14 +13,11 @@ node_t::node_t(
     {
         case node_type_t::OUTPUT:
 
-            //printf("children: %d\n", tree->K);
             children = new node_t*[tree->K];
 
             for (int i = 0; i < tree->K; ++i)
             {
-                //printf("%i=== %p\n", i, children[i]);
                 children[i] = new node_t(tree, this, node_type_t::PERCEPTRON, 0, i, 0);
-                
             }
 
         break;
@@ -28,11 +25,10 @@ node_t::node_t(
         case node_type_t::PERCEPTRON:
 
             children = new node_t*[tree->n];
-            //printf("children: %d\n", tree->n);
+
             for (int index = 0, i = value * tree->n; index < tree->n; i++, index++)
             {   
                 children[index] = new node_t(tree, this, node_type_t::INPUT, 0, i, i);
-                //printf("%d, id: %d, %p\n", i, id, children[i]);
             }
 
         break;
