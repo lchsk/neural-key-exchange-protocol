@@ -94,14 +94,14 @@ tree_t::print_weights()
 }
 
 bool 
-tree_t::is_synchronised(tree_t& p_tree)
+tree_t::is_synchronised(tree_t* p_tree)
 {
     for (int i = 0; i < K; i++)
     {
         for (int j = 0; j < n; j++)
         {
             node_t* n1 = head->children[i]->children[j];
-            node_t* n2 = p_tree.head->children[i]->children[j];
+            node_t* n2 = p_tree->head->children[i]->children[j];
             
             if (n1->weight != n2->weight)
                 return false;

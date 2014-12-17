@@ -3,6 +3,11 @@
 // Lists constants used across other files
 //------------------------------------------
 
+// rank of master process
+#define MASTER 0
+
+#define TAG_KILL 10
+
 // how many digits should be printed as an output
 #define FLOAT_PRECISION 15
 

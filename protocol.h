@@ -14,7 +14,7 @@ class tree_t{
         int evaluate(std::vector<int> v, bool p_change_input, bool p_rand_weights);
         void update_weights();
         void update_subtree_weights(int p_subtree_id);
-        bool is_synchronised(tree_t& p_tree);
+        bool is_synchronised(tree_t* p_tree);
         void find_min();
 
         // value used for input weights [-L, L]
