@@ -11,6 +11,7 @@ class tree_t{
         tree_t(int p_K, int p_n, int p_L);
         ~tree_t();
         void print_weights();
+        std::vector<int> get_weights();
         int evaluate(std::vector<int> v, bool p_change_input, bool p_rand_weights);
         void update_weights();
         void update_subtree_weights(int p_subtree_id);
@@ -28,6 +29,8 @@ class tree_t{
 
         // number of input values (n * K)
         int N;
+
+        int count;
 
         // just a test
         bool min_perceptron_id = -1;

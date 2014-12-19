@@ -47,21 +47,29 @@ std::string config_t::get_program_type()
         return "Online attack (serial)";
     else if (type == run_type_t::ONLINE_ATTACK_MPI)
         return "Online attack (MPI)";
+    else if (type == run_type_t::OFFLINE_ATTACK)
+        return "Offline attack";
 
     return "";
 }
 
 void config_t::help()
 {
-    printf("HELP!\n");
+    printf("Welcome to help screen. Below, each parameter is explained.\n");
+    printf("-t [protocol/online-serial/online-mpi/offline] program's mode\n");
+    printf("-K integer number of perceptrons in a tree\n");
+    printf("-m integer number of input values\n");
+    printf("-L integer range of weights\n");
+    printf("-i integer number of iterations\n");
+    printf("-a integer number of attackers\n");
+
     exit(0);
 }
 
 void config_t::read_parameters(int argc, char* argv[])
 {
     int c;
-    printf("number of arguments: %d\n", argc)   ;
-
+    
     optind = 1;
     while ((c = getopt (argc, argv, "K:m:L:i:ht:a:")) != -1)
         switch (c)
@@ -100,6 +108,8 @@ void config_t::read_parameters(int argc, char* argv[])
                         type = run_type_t::ONLINE_ATTACK_SERIAL;
                     else if (s == "online-mpi")
                         type = run_type_t::ONLINE_ATTACK_MPI;
+                    else if (s == "offline")
+                        type = run_type_t::OFFLINE_ATTACK;
 
                     break;
                 }

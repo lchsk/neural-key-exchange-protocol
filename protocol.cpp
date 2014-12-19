@@ -9,6 +9,7 @@ tree_t::tree_t(int p_K, int p_n, int p_L) : K(p_K), n(p_n), N(K * n), L(p_L)
 {
     // create K perceptrons
     head = new node_t(this, NULL, node_type_t::OUTPUT, 0, 0, 0);
+    count = 0;
 }
 
 tree_t::~tree_t()
@@ -91,6 +92,23 @@ tree_t::print_weights()
         printf("\t");
     }
     printf("\n");
+}
+
+std::vector<int> 
+tree_t::get_weights()
+{
+    std::vector<int> weights;
+
+    for (int i = 0; i < K; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            node_t* n = head->children[i]->children[j];
+            weights.push_back(n->weight);
+        }
+    }
+
+    return weights;
 }
 
 bool 

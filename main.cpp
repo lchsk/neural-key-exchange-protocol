@@ -15,14 +15,12 @@ using namespace std;
 int 
 main (int argc, char* argv[])
 {
-
     config_t c;
 
     c.read_parameters(argc, argv);
 
     control_t* control = new control_t(&c);
     control->run();
-
 
     delete control;
 

@@ -8,7 +8,8 @@ enum class run_type_t
 {
     PROTOCOL_ONLY,
     ONLINE_ATTACK_SERIAL,
-    ONLINE_ATTACK_MPI
+    ONLINE_ATTACK_MPI,
+    OFFLINE_ATTACK
 };
 
 class config_t
