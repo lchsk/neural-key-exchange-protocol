@@ -32,10 +32,6 @@ class tree_t{
 
         int count;
 
-        // just a test
-        bool min_perceptron_id = -1;
-        bool sign_positive = false;
-
         node_t* head;
         std::vector<int> input;
 
